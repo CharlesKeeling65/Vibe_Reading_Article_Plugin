@@ -1,24 +1,24 @@
 {
-  "name": "zotero-plugin-template",
+  "name": "vibe-reading-assistant",
   "type": "module",
-  "version": "3.1.0",
-  "description": "Zotero Plugin Template",
+  "version": "0.0.0",
+  "description": "A Zotero plugin to assist reading and note-taking",
   "config": {
-    "addonName": "Zotero Plugin Template",
-    "addonID": "addontemplate@euclpts.com",
-    "addonRef": "addontemplate",
-    "addonInstance": "AddonTemplate",
-    "prefsPrefix": "extensions.zotero.addontemplate"
+    "addonName": "Vibe Reading Assistant",
+    "addonID": "vibereadingassistant@euclpts.com",
+    "addonRef": "vibereadingassistant",
+    "addonInstance": "VibeReadingAssistant",
+    "prefsPrefix": "extensions.zotero.vibereadingassistant"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/windingwind/zotero-plugin-template.git"
+    "url": "git+https://github.com/CharlesKeeling65/Vibe_Reading_Article_Plugin.git"
   },
-  "author": "windingwind",
+  "author": "Wang Yubo",
   "bugs": {
-    "url": "https://github.com/windingwind/zotero-plugin-template/issues"
+    "url": "https://github.com/CharlesKeeling65/Vibe_Reading_Article_Plugin/issues"
   },
-  "homepage": "https://github.com/windingwind/zotero-plugin-template#readme",
+  "homepage": "https://github.com/CharlesKeeling65/Vibe_Reading_Article_Plugin#readme",
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "start": "zotero-plugin serve",

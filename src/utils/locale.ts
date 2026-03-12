@@ -1,12 +1,13 @@
 import { config } from "../../package.json";
 import { FluentMessageId } from "../../typings/i10n";
 
-export { initLocale, getString, getLocaleID };
+export { getLocaleID, getString, initLocale };
 
 /**
  * Initialize locale data
  */
 function initLocale() {
+  // 当前模板把 addon.ftl 作为通用语言资源入口，初始化后缓存在 addon.data.locale。
   const l10n = new (
     typeof Localization === "undefined"
       ? ztoolkit.getGlobal("Localization")
@@ -72,6 +73,7 @@ function _getString(
   localeString: FluentMessageId,
   options: { branch?: string | undefined; args?: Record<string, unknown> } = {},
 ): string {
+  // 所有消息 ID 都自动加上 addonRef 前缀，避免与其他插件的翻译 key 冲突。
   const localStringWithPrefix = `${config.addonRef}-${localeString}`;
   const { branch, args } = options;
   const pattern = addon.data.locale?.current.formatMessagesSync([
@@ -92,5 +94,6 @@ function _getString(
 }
 
 function getLocaleID(id: FluentMessageId) {
+  // 返回带前缀的 l10n ID，供 ItemPane、菜单等只能接收 ID 的 API 使用。
   return `${config.addonRef}-${id}`;
 }

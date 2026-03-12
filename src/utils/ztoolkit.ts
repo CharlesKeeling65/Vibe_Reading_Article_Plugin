@@ -4,6 +4,7 @@ import { config } from "../../package.json";
 export { createZToolkit };
 
 function createZToolkit() {
+  // 统一创建并初始化 toolkit，避免每个模块重复设置日志、图标和插件 ID。
   const _ztoolkit = new ZoteroToolkit();
   /**
    * Alternatively, import toolkit modules you use to minify the plugin size.
@@ -16,6 +17,7 @@ function createZToolkit() {
 
 function initZToolkit(_ztoolkit: ReturnType<typeof createZToolkit>) {
   const env = __env__;
+  // 日志前缀和调试开关统一在这里配置，便于区分开发 / 生产环境行为。
   _ztoolkit.basicOptions.log.prefix = `[${config.addonName}]`;
   _ztoolkit.basicOptions.log.disableConsole = env === "production";
   _ztoolkit.UI.basicOptions.ui.enableElementJSONLog = __env__ === "development";
@@ -31,9 +33,9 @@ function initZToolkit(_ztoolkit: ReturnType<typeof createZToolkit>) {
   );
 }
 
-import { BasicTool, unregister } from "zotero-plugin-toolkit";
-import { UITool } from "zotero-plugin-toolkit";
+import { BasicTool, UITool, unregister } from "zotero-plugin-toolkit";
 
+// MyToolkit 展示了如何按需组合 toolkit 模块，以换取更小的打包体积。
 class MyToolkit extends BasicTool {
   UI: UITool;
 

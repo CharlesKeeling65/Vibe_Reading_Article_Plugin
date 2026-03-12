@@ -1,33 +1,24 @@
 <linkset>
+  <!-- 偏好页自己的语言资源文件；构建时会自动加上插件前缀。 -->
   <html:link rel="localization" href="__addonRef__-preferences.ftl" />
 </linkset>
-<groupbox
+<groupbox <!-- 面板加载后回调 hooks.onPrefsEvent，再由 src/modules/preferenceScript.ts 接管 UI 初始化。 -->
   onload="Zotero.__addonInstance__.hooks.onPrefsEvent('load', { window })"
->
-  <label><html:h2 data-l10n-id="pref-title"></html:h2></label>
-  <checkbox
-    id="zotero-prefpane-__addonRef__-enable"
-    preference="enable"
-    data-l10n-id="pref-enable"
-  />
+  >
+  <label>
+    <html:h2 data-l10n-id="pref-title"></html:h2>
+  </label>
+  <checkbox id="zotero-prefpane-__addonRef__-enable" preference="enable" data-l10n-id="pref-enable" />
   <hbox>
-    <html:label
-      for="zotero-prefpane-__addonRef__-input"
-      data-l10n-id="pref-input"
-    ></html:label>
-    <html:input
-      type="text"
-      id="zotero-prefpane-__addonRef__-input"
-      preference="input"
-    ></html:input>
+    <html:label for="zotero-prefpane-__addonRef__-input" data-l10n-id="pref-input"></html:label>
+    <html:input type="text" id="zotero-prefpane-__addonRef__-input" preference="input"></html:input>
   </hbox>
   <hbox class="virtualized-table-container" flex="1" height="300px">
+    <!-- 这个容器专门给 VirtualizedTable 挂载，实际表格内容由脚本渲染。 -->
     <html:div id="__addonRef__-table-container" />
   </hbox>
 </groupbox>
 <vbox>
-  <html:label
-    data-l10n-id="pref-help"
-    data-l10n-args='{"time": "__buildTime__","name": "__addonName__","version":"__buildVersion__"}'
-  ></html:label>
+  <html:label data-l10n-id="pref-help"
+    data-l10n-args='{"time": "__buildTime__","name": "__addonName__","version":"__buildVersion__"}'></html:label>
 </vbox>

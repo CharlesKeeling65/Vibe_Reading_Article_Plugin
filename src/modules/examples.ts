@@ -5,6 +5,7 @@ function example(
   propertyKey: string | symbol,
   descriptor: PropertyDescriptor,
 ) {
+  // 装饰器只用于示例方法的日志包装，便于观察每个 demo 何时被调用。
   const original = descriptor.value;
   descriptor.value = function (...args: any) {
     try {
@@ -18,6 +19,7 @@ function example(
   return descriptor;
 }
 
+// BasicExampleFactory 聚合最基础的插件接入能力：通知监听和偏好页注册。
 export class BasicExampleFactory {
   @example
   static registerNotifier() {
@@ -69,6 +71,7 @@ export class BasicExampleFactory {
 
   @example
   static registerPrefs() {
+    // 这里把 addon/content/preferences.xhtml 注册为 Zotero 偏好设置中的一个面板。
     Zotero.PreferencePanes.register({
       pluginID: addon.data.config.addonID,
       src: rootURI + "content/preferences.xhtml",
@@ -78,6 +81,7 @@ export class BasicExampleFactory {
   }
 }
 
+// KeyExampleFactory 演示全局快捷键如何映射到插件内部事件。
 export class KeyExampleFactory {
   @example
   static registerShortcuts() {
@@ -121,6 +125,7 @@ export class KeyExampleFactory {
   }
 }
 
+// UIExampleFactory 负责展示 Zotero 主界面可扩展的常见入口：菜单、列、信息面板和阅读器面板。
 export class UIExampleFactory {
   @example
   static registerStyleSheet(win: _ZoteroTypes.MainWindow) {
@@ -263,6 +268,7 @@ export class UIExampleFactory {
 
   @example
   static async registerReaderItemPaneSection() {
+    // 这是最完整的阅读器侧边栏示例，覆盖初始化、同步渲染、异步渲染和按钮回调。
     Zotero.ItemPaneManager.registerSection({
       paneID: "reader-example",
       pluginID: addon.data.config.addonID,
@@ -348,6 +354,7 @@ export class UIExampleFactory {
   }
 }
 
+// PromptExampleFactory 演示命令面板能力，适合做类似 Obsidian Command Palette 的入口。
 export class PromptExampleFactory {
   @example
   static registerNormalCommandExample() {
@@ -368,6 +375,7 @@ export class PromptExampleFactory {
       {
         id: "search",
         callback: async (prompt) => {
+          // 这个示例展示了如何把 prompt 输入映射为 Zotero 搜索，再把结果渲染成可点击建议列表。
           // https://github.com/zotero/zotero/blob/7262465109c21919b56a7ab214f7c7a8e1e63909/chrome/content/zotero/integration/quickFormat.js#L589
           function getItemDescription(item: Zotero.Item) {
             const nodes = [];
@@ -590,9 +598,11 @@ export class PromptExampleFactory {
   }
 }
 
+// HelperExampleFactory 主要展示 toolkit 提供的辅助能力，如对话框、剪贴板、文件选择器和进度窗。
 export class HelperExampleFactory {
   @example
   static async dialogExample() {
+    // dialogData 既是初始化数据，也是对话框关闭后读取用户输入的状态容器。
     const dialogData: { [key: string | number]: any } = {
       inputValue: "test",
       checkboxValue: true,

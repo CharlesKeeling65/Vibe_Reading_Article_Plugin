@@ -4,6 +4,7 @@ type PluginPrefsMap = _ZoteroTypes.Prefs["PluginPrefsMap"];
 
 const PREFS_PREFIX = config.prefsPrefix;
 
+// 这一层把插件自己的 pref 前缀收口，业务代码无需手动拼接完整键名。
 /**
  * Get preference value.
  * Wrapper of `Zotero.Prefs.get`.
